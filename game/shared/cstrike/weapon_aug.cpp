@@ -77,8 +77,8 @@ void CWeaponAug::SecondaryAttack()
 	{
 		pPlayer->SetFOV( pPlayer, 80, 0.2f );
 		m_weaponMode = Secondary_Mode;
-mSight = TRUE;
-SendWeaponAnim( ACT_IDLE_AIM_RELAXED );
+		mSight = TRUE;
+		SendWeaponAnim( ACT_IDLE_AIM_RELAXED );
 
 	}
 	else 
@@ -87,8 +87,8 @@ SendWeaponAnim( ACT_IDLE_AIM_RELAXED );
 		pPlayer->SetFOV( pPlayer, pPlayer->GetDefaultFOV(), 0.2f );
 		m_weaponMode = Primary_Mode;
 
-mSight = FALSE;
-SendWeaponAnim( ACT_IDLE_AIM_STIMULATED );
+		mSight = FALSE;
+		SendWeaponAnim( ACT_IDLE_AIM_STIMULATED );
 	}
 
 	m_flNextSecondaryAttack = gpGlobals->curtime + 0.3;
@@ -134,9 +134,9 @@ void CWeaponAug::PrimaryAttack()
 	if ( !pPlayer )
 		return;
 
-if(mSight)
+	if(mSight)
 	SendWeaponAnim( ACT_VM_PRIMARYATTACK_SPECIAL );
-else
+	else
 	SendWeaponAnim( ACT_VM_PRIMARYATTACK );
 
 	if ( pPlayer->GetAbsVelocity().Length2D() > 5 )
@@ -159,27 +159,26 @@ bool CWeaponAug::Reload()
 
 	m_weaponMode = Primary_Mode;
 
-m_bWeaponIsLowered = false;
-
+	m_bWeaponIsLowered = false;
+	
 	m_flAccuracy = 0.9;
-int Anim;
+	int Anim;
 
-if(pPlayer->GetFOV() == 80)
-{
-SecondaryAttack();
-if(m_iClip1 == 0)
-Anim = ACT_PRIMARY_RELOAD_FINISH;//empty
-else if(m_iClip1 > 0)
-Anim = ACT_PRIMARY_RELOAD_START;
-}
-else
-{
-if(m_iClip1 == 0)
-Anim = ACT_VM_RELOAD_EMPTY;
-else if(m_iClip1 > 0)
-Anim = ACT_VM_RELOAD;
-}
-
+	if(pPlayer->GetFOV() == 80)
+	{
+		SecondaryAttack();
+		if(m_iClip1 == 0)
+		Anim = ACT_PRIMARY_RELOAD_FINISH;//empty
+		else if(m_iClip1 > 0)
+		Anim = ACT_PRIMARY_RELOAD_START;
+	}
+	else
+	{
+	if(m_iClip1 == 0)
+	Anim = ACT_VM_RELOAD_EMPTY;
+	else if(m_iClip1 > 0)
+	Anim = ACT_VM_RELOAD;
+	}
 return DefaultReload( GetCSWpnData().iDefaultClip1, 0, Anim );
 }
 
